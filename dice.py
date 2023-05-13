@@ -29,7 +29,7 @@ def _iterable_to_tuple(x) -> tuple:
 
 def dice(tensor:torch.Tensor, length:Union[int, torch.Tensor, list, tuple], 
          dicing_dims:Union[int, torch.Tensor, list, tuple, None]=None,
-         clone:bool=True) -> tuple:
+         clone:bool=True, return_slice:bool=False) -> tuple:
     tensor = tensor.clone() if clone else tensor
     dims = torch.arange(len(tensor.shape))
     if dicing_dims is None: dicing_dims = dims
@@ -48,6 +48,5 @@ def dice(tensor:torch.Tensor, length:Union[int, torch.Tensor, list, tuple],
         slice_idxs = (torch.arange(dice_nums[dim]) * length[dim]).tolist() + [None]
         slicer.append(
             [slice(i, j) for i, j in zip(slice_idxs[:-1], slice_idxs[1:])])
-    slices = list(itertools.product(*slicer))
-    diced_tensors = [tensor[slice_] for slice_ in slices]
-    return slices, diced_tensors
+    slices = tuple(itertools.product(*slicer))
+    return slices if return_slice else tuple([tensor[slice_] for slice_ in slices])
