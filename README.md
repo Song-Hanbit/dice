@@ -154,7 +154,7 @@ This method can be used when making a set of batches of `torch.Tensor` with a de
 >  (slice(0, None, None), slice(2, None, None), slice(0, 3, None)),
 >  (slice(0, None, None), slice(2, None, None), slice(3, None, None)))
 >```
-5. Original data may modified when `clone=False`.
+5. Original data can be modified when `clone=False`.
 >`input:`
 >```python
 >dice(data, 2, clone=False)[3][0, 0, 0] = 99999
