@@ -4,17 +4,29 @@ import itertools
 from typing import Union
 
 def is_integer(x) -> bool:
+    '''
+    Checks whether x is a python, torch, or numpy integers. 
+    '''
     return type(x) in [int, torch.int8, torch.int16, torch.int32, torch.int64,
                        np.int8, np.int16, np.int32, np.int64]
 
 def is_1d_iterable(x) -> bool:
+    '''
+    Checks whether x is an iterable, a 1-dimensional torch.Tensor, or numpy.ndarray.
+    '''
     return (type(x) in [list, tuple, range, set] 
             or type(x) in [torch.Tensor, np.ndarray] and len(x.shape) == 1)
 
 def is_0d_iterable(x) -> bool:
+    '''
+    Checks whether x is a 0-dimensional torch.Tensor, or numpy.ndarray.
+    '''
     return type(x) in [np.ndarray, torch.Tensor] and len(x.shape) == 0
 
 def _iterable_to_tuple(x) -> tuple:
+    '''
+    Takes a 0/1-D iterable, or an integer and changes it into a tuple.
+    '''
     if is_1d_iterable(x): 
         x = tuple(torch.as_tensor(x).tolist())
         for item in x:
@@ -30,6 +42,10 @@ def _iterable_to_tuple(x) -> tuple:
 def dice(tensor:torch.Tensor, length:Union[int, torch.Tensor, list, tuple], 
          dicing_dims:Union[int, torch.Tensor, list, tuple, None]=None,
          clone:bool=True, return_slice:bool=False) -> tuple:
+    '''
+    dices a tensor. 
+    returns a tuple of diced tensors, or a tuple filled with tuples of slice objects.
+    '''
     tensor = tensor.clone() if clone else tensor
     dims = torch.arange(len(tensor.shape))
     if dicing_dims is None: dicing_dims = dims
