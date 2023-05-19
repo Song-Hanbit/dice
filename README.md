@@ -48,7 +48,7 @@ numpy 1.23.4
 >>
 >> **Return type:**
 >>
->> `tuple[torch.Tensor]` or `tuple[tuple]`
+>> *`tuple[torch.Tensor]`* or *`tuple[tuple]`*
 
 The example at "<ins>https://pytorch.org/docs/stable/generated/torch.split.html</ins>" was reproduced below, however,
 
