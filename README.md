@@ -28,8 +28,10 @@ numpy 1.23.4
 >    clone: bool = True,
 >    return_slice: bool = False,
 >) -> tuple
->Docstring: <no docstring>
->File:      ~/booty/dice.py
+>Docstring:
+>dices a tensor. 
+>returns a tuple of diced tensors, or a tuple filled with tuples of slice objects.
+>File:      ~/"DIR"/dice.py
 >Type:      function
 >```
 >> **Arguments:**
@@ -47,6 +49,41 @@ numpy 1.23.4
 >> **Return type:**
 >>
 >> `tuple[torch.Tensor]` or `tuple[tuple]`
+
+The example at "<ins>https://pytorch.org/docs/stable/generated/torch.split.html</ins>" was reproduced below, however,
+
+*currently, different size by chunk is not supported.*
+
+>`input:`
+>```python
+>import torch
+>a = torch.arange(10).reshape(5, 2)
+>torch.split(a, 2)
+>```
+>
+>`output:`
+>```
+> (tensor([[0, 1],
+>          [2, 3]]),
+>  tensor([[4, 5],
+>          [6, 7]]),
+>  tensor([[8, 9]]))
+>```
+>
+>`input:`
+>```python
+>dice(a, 2, 0)
+>```
+>
+>`output:`
+>```
+> (tensor([[0, 1],
+>          [2, 3]]),
+>  tensor([[4, 5],
+>          [6, 7]]),
+>  tensor([[8, 9]]))
+>```
+
 
 # How to use
 
